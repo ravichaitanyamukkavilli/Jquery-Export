@@ -1,4 +1,4 @@
-     (function ($) {
+   (function ($) {
 
             $.jsExport = function (options) {
 
@@ -9,14 +9,16 @@
                     data: "",
                     paging: false,
                     alternateRowColor: "white",
-                    HeaderColor:"white"
+                    HeaderColor: "white",
+                    font: "bold 10px arial",
+                    textalign:"center"
                 }, options);
 
                 switch (settings.type) {
 
                     case "excel":
                         if (settings.paging) {
-                            var table = makeTable(settings.data);
+                            var table = makeTable(settings.data.d);
                             
                             window.open("data:application/vnd.ms-excel," + encodeURIComponent(table));
                         }
@@ -42,7 +44,7 @@
                     
                 }
                 function makeTable(data) {
-                    var table = '<div id=tempdiv><table id="tempid" border="1" ;style="width:100%; height:100%" >';
+                    var table = '<div id=tempdiv><table id="tempid" border="1" ;style=width:100%; height:100%; font='+settings.font+">";
                     var tbl_body = "";
 
                     var HeadKeys = "";
@@ -52,14 +54,14 @@
                         HeadKeys = '';
                         $.each(this, function (k, v) {
                           
-                            tbl_row += "<td style='text-align:center'>" + v + "</td>";
-                            HeadKeys += "<td style=background-color:'" + settings.HeaderColor + "';text-align:center><b>" + k + '</b></td>';
+                            tbl_row += "<td style=text-align:'" + settings.textalign + "'>" + v + "</td>";
+                            HeadKeys += "<td style=background-color:'" + settings.HeaderColor + "';text-align:'" + settings.textalign + "'><b>" + k + '</b></td>';
                         })
                         if (i%2==0) {
-                            tbl_body += "<tr style=background-color:'" + settings.alternateRowColor + "';text-align:center>" + tbl_row + "</tr>";
+                            tbl_body += "<tr style=background-color:'" + settings.alternateRowColor + "';text-align:'" + settings.textalign + "'>" + tbl_row + "</tr>";
                         }
                         else {
-                            tbl_body += "<tr style=text-align:center>" + tbl_row + "</tr>";
+                            tbl_body += "<tr style=text-align:'"+settings.textalign+"'>" + tbl_row + "</tr>";
                         }
                         i++;
                     });
