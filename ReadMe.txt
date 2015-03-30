@@ -6,15 +6,45 @@ Eg:
 <head>
 //This Plugin will work only on new browsers that support html5.
 //Don't forget to add jquery reference,without it the plugin will not work.
-  $("#btn_export").click(function (e) {
+   $("#btn_export").click(function () {
+                var status = false;
+                var data = "";
+                
+                var table = $.ajax({
+                    type: "POST",
+                    context: document.body,
+                    global: false,
+                    async: false,
+                    dataType: "json",
+                  
+                    contentType: "application/json; charset=utf-8",
+                    url: "WebForm1.aspx/getDataq",
+                    success: function (data) {
+                        return data;
+                    },
+                    dataFilter: function (data) {
+                        // This boils the response string down 
+                        //  into a proper JavaScript Object().
+                        var msg = eval('(' + data + ')');
+
+                        // If the response has a ".d" top-level property,
+                        //  return what's below that instead.
+                        if (msg.hasOwnProperty('d'))
+                            return msg.d;
+                        else
+                            return msg;
+                    },
+
+                }).responseText;
+             table=$.parseJSON(table);
                
-                $("#gridview").jsExport({
-                    type: "doc",
-                    data: $("#gridview").html()
-                });
-                //window.open('data:application/pdf,' + encodeURIComponent(grid));
-                e.preventDefault();
-            });
+             $.jsExport({
+                 type: 'excel',
+                 paging: true,
+                 data: table,
+                 alternateRowColor: "Red",
+                 HeaderColor:"Blue"
+             });
 </head>
 <body>
 <form id="form1" runat="server">
