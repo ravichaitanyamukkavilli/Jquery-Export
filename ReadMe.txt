@@ -1,5 +1,5 @@
-Using JsExport Plugin you can export your html table,Gridview,WebGrid to excel,doc,xml,ppt.
-
+Using JsExport Plugin you can export your html table,Gridview,WebGrid to excel,doc,xml.
+along with header color,Alternate Row Color,txtalign,font.
 Eg:
 
 <html>
@@ -37,7 +37,7 @@ Eg:
 
                 }).responseText;
              table=$.parseJSON(table);
-               
+               //For asp.net 3.5 above application make sure that you send only d property value as the parameter.
              $.jsExport({
                  type: 'excel',
                  paging: true,
