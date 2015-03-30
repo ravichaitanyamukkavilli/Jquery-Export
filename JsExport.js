@@ -1,4 +1,4 @@
-   (function ($) {
+ (function ($) {
 
             $.jsExport = function (options) {
 
@@ -7,17 +7,20 @@
                     // These are the defaults.
                     type: "excel",
                     data: "",
-                    paging: false,
-                    alternateRowColor: "white",
-                    HeaderColor: "white",
-                    font: "bold 10px arial",
-                    textalign:"center"
+                    paging: {
+                        paging: false,
+                        alternateRowColor: "white",
+                        HeaderColor: "white",
+                        font: "bold 10px arial",
+                        textalign: "center"
+                    }
+                   
                 }, options);
 
                 switch (settings.type) {
 
                     case "excel":
-                        if (settings.paging) {
+                        if (settings.paging.paging) {
                             var table = makeTable(settings.data.d);
                             
                             window.open("data:application/vnd.ms-excel," + encodeURIComponent(table));
@@ -28,7 +31,7 @@
                         
                         break;
                     case "doc":
-                        if (settings.paging) {
+                        if (settings.paging.paging) {
                             var table = makeTable(settings.data);
                             window.open("data:application/msword," + encodeURIComponent(table));
                         }
@@ -54,14 +57,14 @@
                         HeadKeys = '';
                         $.each(this, function (k, v) {
                           
-                            tbl_row += "<td style=text-align:'" + settings.textalign + "'>" + v + "</td>";
-                            HeadKeys += "<td style=background-color:'" + settings.HeaderColor + "';text-align:'" + settings.textalign + "'><b>" + k + '</b></td>';
+                            tbl_row += "<td style=text-align:'" + settings.paging.textalign + "'>" + v + "</td>";
+                            HeadKeys += "<td style=background-color:'" + settings.paging.HeaderColor + "';text-align:'" + settings.paging.textalign + "'><h3>" + k + '</h3></td>';
                         })
                         if (i%2==0) {
-                            tbl_body += "<tr style=background-color:'" + settings.alternateRowColor + "';text-align:'" + settings.textalign + "'>" + tbl_row + "</tr>";
+                            tbl_body += "<tr style=background-color:'" + settings.paging.alternateRowColor + "';text-align:'" + settings.paging.textalign + "'>" + tbl_row + "</tr>";
                         }
                         else {
-                            tbl_body += "<tr style=text-align:'"+settings.textalign+"'>" + tbl_row + "</tr>";
+                            tbl_body += "<tr style=text-align:'" + settings.paging.textalign + "'>" + tbl_row + "</tr>";
                         }
                         i++;
                     });
