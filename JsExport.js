@@ -16,7 +16,7 @@
 
                     case "excel":
                         if (settings.paging) {
-                            var table = makeTable(settings.data.d);
+                            var table = makeTable(settings.data);
                             
                             window.open("data:application/vnd.ms-excel," + encodeURIComponent(table));
                         }
