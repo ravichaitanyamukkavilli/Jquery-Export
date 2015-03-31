@@ -47,7 +47,7 @@
                     
                 }
                 function makeTable(data) {
-                    var table = '<div id=tempdiv><table id="tempid" border="1" ;style=width:100%; height:100%; font='+settings.font+">";
+                    var table = '<div id=tempdiv><table id="tempid" border="1" ;style=width:100%; height:100%; font='+settings.font+"'>";
                     var tbl_body = "";
 
                     var HeadKeys = "";
