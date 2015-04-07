@@ -21,7 +21,7 @@
 
                     case "excel":
                         if (settings.paging.paging) {
-                            var table = makeTable(settings.data.d);
+                            var table = makeTable(settings.data);
                             
                             window.open("data:application/vnd.ms-excel," + encodeURIComponent(table));
                         }
@@ -47,12 +47,12 @@
                     
                 }
                 function makeTable(data) {
-                    var table = '<div id=tempdiv><table id="tempid" border="1" ;style=width:100%; height:100%; font='+settings.font+"'>";
+                    var table = '<div id=tempdiv><table id="tempid" border="1" ;style=width:100%; height:100%; font='+settings.paging.font+"'>";
                     var tbl_body = "";
 
                     var HeadKeys = "";
                     var i = 0;
-                    $.each($.parseJSON(data), function () {
+                    $.each(data, function () {
                         var tbl_row = "";
                         HeadKeys = '';
                         $.each(this, function (k, v) {
