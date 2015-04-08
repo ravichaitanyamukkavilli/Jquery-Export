@@ -12,7 +12,9 @@
                         alternateRowColor: "white",
                         HeaderColor: "white",
                         font: "bold 10px arial",
-                        textalign: "center"
+                        textalign: "center",
+                        headerFontColor: "black",
+                        rowfontColor:"black"
                     }
                    
                 }, options);
@@ -57,14 +59,14 @@
                         HeadKeys = '';
                         $.each(this, function (k, v) {
                           
-                            tbl_row += "<td style=text-align:'" + settings.paging.textalign + "'>" + v + "</td>";
-                            HeadKeys += "<td style=background-color:'" + settings.paging.HeaderColor + "';text-align:'" + settings.paging.textalign + "'><h3>" + k + '</h3></td>';
+                            tbl_row += "<td style=text-align:'" + settings.paging.textalign + "';color:'" + settings.paging.rowfontColor + "'>" + v + "</td>";
+                            HeadKeys += "<td style=background-color:'" + settings.paging.HeaderColor + "';text-align:'" + settings.paging.textalign + "';color:'"+settings.paging.headerFontColor+"'><h3>" + k + '</h3></td>';
                         })
                         if (i%2==0) {
-                            tbl_body += "<tr style=background-color:'" + settings.paging.alternateRowColor + "';text-align:'" + settings.paging.textalign + "'>" + tbl_row + "</tr>";
+                            tbl_body += "<tr style=background-color:'" + settings.paging.alternateRowColor + "';text-align:'" + settings.paging.textalign + "';color:'" + settings.paging.rowfontColor + "'>" + tbl_row + "</tr>";
                         }
                         else {
-                            tbl_body += "<tr style=text-align:'" + settings.paging.textalign + "'>" + tbl_row + "</tr>";
+                            tbl_body += "<tr style=text-align:'" + settings.paging.textalign + "';color:'" + settings.paging.rowfontColor + "'>" + tbl_row + "</tr>";
                         }
                         i++;
                     });
