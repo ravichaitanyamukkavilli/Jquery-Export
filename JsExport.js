@@ -15,7 +15,8 @@
                 textalign: "center",
                 headerFontColor: "black",
                 rowfontColor: "black"
-            }
+            },
+            filename: "download"
 
         }, options);
 
@@ -23,19 +24,22 @@
 
             case "excel":
                 if (settings.paging.paging) {
-                    
+                    // var table = makeTable(settings.data);
                     if (settings.data.d != undefined) {
                         var table = makeTable(settings.data.d);
-                        window.open("data:application/vnd.ms-excel," + encodeURIComponent(table));
+                        downloadFile(settings.filename + '.xls', 'data:application/vnd.ms-excel,' + encodeURIComponent(table));
+
                     }
                     else {
                         var table = makeTable(settings.data);
-                        window.open("data:application/vnd.ms-excel," + encodeURIComponent(table));
+                        downloadFile(settings.filename + '.xls', 'data:application/vnd.ms-excel,' + encodeURIComponent(table));
+
                     }
-                   
+
                 }
                 else {
-                    window.open("data:application/vnd.ms-excel," + encodeURIComponent(settings.data));
+                    downloadFile(settings.filename + '.xls', 'data:application/vnd.ms-excel,' + encodeURIComponent(settings.data));
+
                 }
 
                 break;
@@ -47,15 +51,75 @@
                     }
                     else {
                         var table = makeTable(settings.data);
-                        window.open("data:application/msword," + encodeURIComponent(table));
+                        downloadFile(settings.filename + '.doc', 'data:application/msword,' + encodeURIComponent(table));
+
                     }
 
                 }
                 else {
-                    window.open("data:application/msword," + encodeURIComponent(settings.data));
+                    downloadFile(settings.filename + '.doc', 'data:application/msword,' + encodeURIComponent(settings.data));
                 }
 
                 break;
+
+            case "csv":
+                if (settings.data.d != undefined) {
+                    var csv = convertCSV(settings.data.d);
+                    downloadFile(settings.filename + '.csv', 'data:text/csv;charset=UTF-8,' + encodeURIComponent(csv));
+
+                }
+                else {
+                    var csv = convertCSV(settings.data);
+                    downloadFile(settings.filename + '.csv', 'data:text/csv;charset=UTF-8,' + encodeURIComponent(csv));
+
+                }
+
+                break;
+
+        }
+        function downloadFile(fileName, urlData) {
+
+            var aLink = document.createElement('a');
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent("click");
+            aLink.download = fileName;
+            aLink.href = urlData;
+            aLink.dispatchEvent(evt);
+        }
+
+
+
+        function convertCSV(data) {
+
+            var array = typeof objArray != 'object' ? JSON.parse(data) : objArray;
+            if (settings.data.d != undefined) {
+                data = $.parseJSON(data);
+            }
+
+            var str = '';
+
+            for (var index in array[0]) {
+
+                //Now convert each value to string and comma-seprated
+                str += index + ',';
+            }
+
+            str = str.slice(0, -1);
+
+            //append Label row with line break
+            str += '\r\n';
+            for (var i = 0; i < array.length; i++) {
+                var line = '';
+                for (var index in array[i]) {
+                    if (line != '') line += ','
+
+                    line += array[i][index];
+                }
+
+                str += line + '\r\n';
+            }
+
+            return str;
         }
         function makeTable(data) {
             var table = '<div id=tempdiv><table id="tempid" border="1" ;style=width:100%; height:100%; font=' + settings.paging.font + "'>";
