@@ -1,4 +1,4 @@
-Using JsExport Plugin you can export your html table,Gridview,WebGrid to excel,doc,xml.
+Using JsExport Plugin you can export your html table,Gridview,WebGrid to excel,doc,csv and with custom filename.
 along with header color,Alternate Row Color,txtalign,font and font color for header and rows as well .
 Eg:
 
@@ -48,7 +48,7 @@ Eg:
                      font: "bold 12px arial"
                  },
                  data: table,
-                
+                filename:'mydoc'
              });
                      
 </head>
