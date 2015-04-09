@@ -63,6 +63,7 @@
                 break;
 
             case "csv":
+                 if (settings.paging.paging) {
                 if (settings.data.d != undefined) {
                     var csv = convertCSV(settings.data.d);
                     downloadFile(settings.filename + '.csv', 'data:text/csv;charset=UTF-8,' + encodeURIComponent(csv));
@@ -73,7 +74,10 @@
                     downloadFile(settings.filename + '.csv', 'data:text/csv;charset=UTF-8,' + encodeURIComponent(csv));
 
                 }
-
+            }
+             else {
+                    downloadFile(settings.filename + '.csv', 'data:text/csv;charset=UTF-8,' + encodeURIComponent(settings.data));
+                }
                 break;
 
         }
