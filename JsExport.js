@@ -47,7 +47,7 @@
                 if (settings.paging.paging) {
                     if (settings.data.d != undefined) {
                         var table = makeTable(settings.data.d);
-                        window.open("data:application/msword," + encodeURIComponent(table));
+                          downloadFile(settings.filename + '.doc', 'data:application/msword,' + encodeURIComponent(table));
                     }
                     else {
                         var table = makeTable(settings.data);
